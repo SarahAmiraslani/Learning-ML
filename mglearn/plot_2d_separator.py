@@ -20,13 +20,15 @@ def _call_classifier_chunked(classifier_pred_or_decide, X):
     chunk_size = 10000
 
     # We use a list to collect all result chunks
-    Y_result_chunks = []
+    Y_result_chunks = [
+        classifier_pred_or_decide(x_chunk)
+        for x_chunk in np.array_split(
+            X,
+            np.arange(chunk_size, X.shape[0], chunk_size, dtype=np.int32),
+            axis=0,
+        )
+    ]
 
-    # Call the classifier in chunks.
-    for x_chunk in np.array_split(X, np.arange(chunk_size, X.shape[0],
-                                               chunk_size, dtype=np.int32),
-                                  axis=0):
-        Y_result_chunks.append(classifier_pred_or_decide(x_chunk))
 
     return np.concatenate(Y_result_chunks)
 

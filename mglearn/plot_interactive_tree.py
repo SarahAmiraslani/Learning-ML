@@ -34,7 +34,7 @@ def tree_image(tree, fout=None):
     if fout is None:
         fout = "tmp"
     graph.render(fout)
-    return imread(fout + ".png")
+    return imread(f"{fout}.png")
 
 
 def plot_tree_progressive():
@@ -47,7 +47,7 @@ def plot_tree_progressive():
     plt.legend(["Class 0", "Class 1"], loc='best')
 
     axes = []
-    for i in range(3):
+    for _ in range(3):
         fig, ax = plt.subplots(1, 2, figsize=(12, 4),
                                subplot_kw={'xticks': (), 'yticks': ()})
         axes.append(ax)
