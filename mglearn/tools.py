@@ -26,14 +26,17 @@ def visualize_coefficients(coefficients, feature_names, n_top_features=25):
     coefficients = coefficients.squeeze()
     if coefficients.ndim > 1:
         # this is not a row or column vector
-        raise ValueError("coeffients must be 1d array or column vector, got"
-                         " shape {}".format(coefficients.shape))
+        raise ValueError(
+            f"coeffients must be 1d array or column vector, got shape {coefficients.shape}"
+        )
+
     coefficients = coefficients.ravel()
 
     if len(coefficients) != len(feature_names):
-        raise ValueError("Number of coefficients {} doesn't match number of"
-                         "feature names {}.".format(len(coefficients),
-                                                    len(feature_names)))
+        raise ValueError(
+            f"Number of coefficients {len(coefficients)} doesn't match number offeature names {len(feature_names)}."
+        )
+
     # get coefficients with large absolute values
     coef = coefficients.ravel()
     positive_coefficients = np.argsort(coef)[-n_top_features:]
@@ -73,10 +76,7 @@ def heatmap(values, xlabel, ylabel, xticklabels, yticklabels, cmap=None,
     for p, color, value in zip(img.get_paths(), img.get_facecolors(),
                                img.get_array()):
         x, y = p.vertices[:-2, :].mean(0)
-        if np.mean(color[:3]) > 0.5:
-            c = 'k'
-        else:
-            c = 'w'
+        c = 'k' if np.mean(color[:3]) > 0.5 else 'w'
         ax.text(x, y, fmt % value, color=c, ha="center", va="center")
     return img
 

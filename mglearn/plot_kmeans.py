@@ -110,7 +110,7 @@ def plot_kmeans_faces(km, pca, X_pca, X_people, y_people, target_names):
         for image, label, asdf, ax in zip(X_people[inds], y_people[inds],
                                           km.labels_[inds], axes[cluster, 1:]):
             ax.imshow(image.reshape(image_shape), vmin=0, vmax=1)
-            ax.set_title("%s" % (target_names[label].split()[-1]), fontdict={'fontsize': 9})
+            ax.set_title(f"{target_names[label].split()[-1]}", fontdict={'fontsize': 9})
 
     # add some boxes to illustrate which are similar and which dissimilar
     rec = plt.Rectangle([-5, -30], 73, 1295, fill=False, lw=2)
